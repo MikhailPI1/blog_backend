@@ -1,0 +1,13 @@
+# Docker cash
+.docker-cache/
+
+
+*.log
+
+*__pycache__
+# Virtual environment
+/venv
+/.venv/
+/.venv312/
+*uploads
+.env
