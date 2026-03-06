@@ -10,7 +10,7 @@ router = APIRouter()
 async def create_tag(tag_data: TagCreate):
     """Создает новый тег"""
     existing = await get_tag_by_slug_query(tag_data.slug)
-    if existing:
+    if existing and existing.get('id') is not None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Tag with this slug already exists"

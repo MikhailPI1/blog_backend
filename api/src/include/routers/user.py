@@ -10,7 +10,7 @@ router = APIRouter()
 async def create_user(user_data: UserCreate):
     """Создает нового пользователя"""
     existing = await get_user_by_email_query(user_data.email)
-    if existing:
+    if existing and existing.get('id') is not None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="User with this email already exists"
@@ -39,7 +39,7 @@ async def get_user(user_id: int):
     """Получает пользователя по ID"""
     result = await get_user_query(user_id)
     
-    if not result:
+    if not result and result.get('id') is None:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="User not found"

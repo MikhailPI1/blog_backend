@@ -10,7 +10,7 @@ router = APIRouter()
 async def create_post(post_data: PostCreate):
     """Создает новый пост"""
     existing = await get_post_by_slug_query(post_data.slug)
-    if existing:
+    if existing and existing.get('id') is not None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Post with this slug already exists"
